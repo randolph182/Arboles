@@ -1,23 +1,5 @@
 digraph G
 {
  node	[shape = record,height=.1];
-node0[label="<r0>|<c1> 29|<r1>"];
-node1[label="<r0>|<c1> 15|<r1>|<c2> 22|<r2>"];
-node2[label="<r0>|<c1> 48|<r1>|<c2> 82|<r2>"];
-node3[label="<r0>|<c1> 5|<r1>|<c2> 9|<r2>"];
-node4[label="<r0>|<c1> 16|<r1>|<c2> 18|<r2>|<c3> 19|<r3>"];
-node5[label="<r0>|<c1> 24|<r1>|<c2> 26|<r2>"];
-node6[label="<r0>|<c1> 32|<r1>|<c2> 45|<r2>"];
-node7[label="<r0>|<c1> 57|<r1>|<c2> 79|<r2>"];
-node8[label="<r0>|<c1> 126|<r1>|<c2> 172|<r2>|<c3> 192|<r3>|<c4> 232|<r4>"];
-
-"node0":r0 ->"node1"
-"node0":r1 -> "node2"
-"node1":r0 ->"node3"
-"node1":r1 -> "node4"
-"node1":r2 -> "node5"
-"node2":r0 ->"node6"
-"node2":r1 -> "node7"
-"node2":r2 -> "node8"
 }
 

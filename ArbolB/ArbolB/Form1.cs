@@ -8,6 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+/*
+ Tomado el libro algoritmos y estructuras de datos. una perspectiva en C 
+     Randolph Estuardo Muy
+     randman182@gmail.com
+     */
 namespace ArbolB
 {
     public partial class Form1 : Form
