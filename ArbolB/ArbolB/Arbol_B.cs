@@ -7,6 +7,7 @@ using System.Runtime.Hosting;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ArbolB
 {
@@ -152,5 +153,196 @@ namespace ArbolB
 
         }
 
+
+        public void eliminar(int valor)
+        {
+            eliminar(ref raiz, valor);
+        }
+
+        public void eliminar(ref Pagina raiz, int valor)
+        {
+            bool encontrado = false;
+            eliminarRegistro(raiz,valor,ref encontrado);
+            if(encontrado)
+            {
+                Console.WriteLine("INFO: clave eliminada: " + valor.ToString());
+                if(raiz.cuenta == 0)
+                {
+                    /* la raiz esta vacia, se libera el nodo y se establece la nueva raiz*/
+                    Pagina p = raiz;
+                    raiz = raiz.ramas[0];
+                }
+            }
+            else
+            {
+                Console.WriteLine("INFO: la clave " + valor.ToString() + "no se encuentra" );
+            }
+        }
+
+        public void eliminarRegistro(Pagina actual, int valor, ref bool encontrado)
+        {
+            int k = 0;
+            if(actual != null)
+            {
+                encontrado = buscarPagina(actual, valor,ref k);
+                if(encontrado)
+                {
+                    if(actual.ramas[k - 1] == null)
+                    {
+                        quitar(actual, k);
+                    }
+                    else
+                    {
+                        sucesor(actual, k);
+                        eliminarRegistro(actual.ramas[k], actual.claves[k], ref encontrado);
+                    }
+                }
+                else
+                {
+                    eliminarRegistro(actual.ramas[k], valor, ref encontrado);
+                }
+
+                /*las llamadas recursivas devuelven control a este punto
+                Se comprueba el numero de claves del nodo descendiente,
+                desde el nodo actual en la ruta de busqueda seguida*/
+                if (actual.ramas[k] != null)
+                {
+                    if(actual.ramas[k].cuenta  < orden/2)
+                    {
+                        restablecer(actual, k);
+                    }
+                }
+            }
+            else
+            {
+                encontrado = false;
+            }
+        }
+
+        public void quitar(Pagina actual, int k)
+        {
+            int j;
+
+            for(j = k + 1; j <= actual.cuenta; j++) 
+            {
+                actual.claves[j - 1] = actual.claves[j]; //practicamente borramos la clave con el corrimeinto
+                actual.ramas[j - 1] = actual.ramas[j];
+            }
+            actual.cuenta--;
+        }
+
+        public void sucesor(Pagina actual, int k)
+        {
+            Pagina q = null;
+            q = actual.ramas[k];
+            while(q.ramas[0] != null)
+            {
+                q = q.ramas[0];
+            }
+            /* q referencia al nodo hoja*/
+            actual.claves[k] = q.claves[1];
+        }
+
+        public void restablecer(Pagina actual, int k)
+        {
+            if(k > 0) //tiene hermano izquierdo
+            {
+                if(actual.ramas[k-1].cuenta > orden/2)
+                {
+                    moverDerecha(actual, k);
+                }
+                else
+                {
+                    combinar(actual, k);
+                }
+            }
+            else //solo tine hermano derecho
+            {
+                if(actual.ramas[1].cuenta  > orden/2)
+                {
+                    moverIzquierda(actual, 1);
+                }
+                else
+                {
+                    combinar(actual, 1);
+                }
+            }
+        }
+
+
+        public void moverDerecha(Pagina actual, int k)
+        {
+            int j = 0;
+            Pagina nodoProblema = actual.ramas[k];
+            Pagina nodoIzquierdo = actual.ramas[k - 1];
+
+            for (j = nodoProblema.cuenta; j >= 1; j--)
+            {
+                nodoProblema.claves[j + 1] = nodoProblema.claves[j];
+                nodoProblema.ramas[j + 1] = nodoProblema.ramas[j];
+            }
+
+            nodoProblema.cuenta++;
+            nodoProblema.ramas[1] = nodoProblema.ramas[0];
+            /* baaja la clave del nodo padre*/
+            nodoProblema.claves[1] = actual.claves[k];
+            /*  sube a clave desde el hermano izquierdo al nodo padre, para reemplazar la que antes bajo*/
+            actual.claves[k] = nodoIzquierdo.claves[nodoIzquierdo.cuenta];
+            nodoProblema.ramas[0] = nodoIzquierdo.ramas[nodoIzquierdo.cuenta];
+            nodoIzquierdo.cuenta--;
+        }
+
+        public void moverIzquierda(Pagina actual, int k)
+        {
+            int j = 0;
+            Pagina nodoProblema = actual.ramas[k - 1];
+            Pagina nodoDerecho = actual.ramas[k];
+
+            nodoProblema.cuenta++;
+            nodoProblema.claves[nodoProblema.cuenta] = actual.claves[k];
+            nodoProblema.ramas[nodoProblema.cuenta] = nodoDerecho.ramas[0];
+
+            /* sube la clave desde le hermano derecho al nodo padre
+            para reemplazar la que antes bajo*/
+
+            actual.claves[k] = nodoDerecho.claves[1];
+            nodoDerecho.ramas[1] = nodoDerecho.ramas[0];
+            nodoDerecho.cuenta--;
+
+            for (j = 1; j < nodoDerecho.cuenta; j++)
+            {
+                nodoDerecho.claves[j] = nodoDerecho.claves[j + 1];
+                nodoDerecho.ramas[j] = nodoDerecho.ramas[j + 1];
+            }
+        }
+
+
+        public void combinar(Pagina actual, int k)
+        {
+            int j = 0;
+            Pagina nodoIzquierdo, q = null;
+            q = actual.ramas[k];
+            nodoIzquierdo = actual.ramas[k - 1];
+                        /* baja la clave mediana desde el node padre*/
+            nodoIzquierdo.cuenta++;
+            nodoIzquierdo.claves[nodoIzquierdo.cuenta] = actual.claves[k];
+            nodoIzquierdo.ramas[nodoIzquierdo.cuenta] = q.ramas[0];
+            /* mueve claves del nodo derecho */
+            for(j = 1; j <= q.cuenta; j++)
+            {
+                nodoIzquierdo.cuenta++;
+                nodoIzquierdo.claves[nodoIzquierdo.cuenta] = q.claves[j];
+                nodoIzquierdo.ramas[nodoIzquierdo.cuenta] = q.ramas[j];
+            }
+            /* se ajustan claves y ramas del nodo padre debido a que
+                        antes descendio la clave k*/
+            for(j = k; j <= actual.cuenta -1; j++)
+            {
+                actual.claves[j] = actual.claves[j + 1];
+                actual.ramas[j] = actual.ramas[j + 1];
+            }
+            actual.cuenta--;
+            //un free
+        }
     }
 }

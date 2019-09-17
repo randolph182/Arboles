@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArbolB
 {
-    public class Generico<T>
+    public class Generico<T> 
     {
         private T valor;
 
@@ -19,6 +19,16 @@ namespace ArbolB
         public T getValor()
         {
             return valor;
+        }
+
+
+        public String getId()
+        {
+            if (typeof(T) == typeof(NodoBD))
+                return valor.ToString();
+            else if (typeof(T) == typeof(String))
+                return valor.ToString();    
+            return "";
         }
 
         

@@ -8,3 +8,13 @@ C:\Users\Rm\source\repos\ArbolB\ArbolB\bin\Debug\ArbolB.exe
 C:\Users\Rm\source\repos\ArbolB\ArbolB\bin\Debug\ArbolB.pdb
 C:\Users\Rm\source\repos\ArbolB\ArbolB\obj\Debug\ArbolB.exe
 C:\Users\Rm\source\repos\ArbolB\ArbolB\obj\Debug\ArbolB.pdb
+C:\Users\Rm\Documents\GitHub\Arboles\ArbolB\ArbolB\bin\Debug\ArbolB.exe.config
+C:\Users\Rm\Documents\GitHub\Arboles\ArbolB\ArbolB\bin\Debug\ArbolB.exe
+C:\Users\Rm\Documents\GitHub\Arboles\ArbolB\ArbolB\bin\Debug\ArbolB.pdb
+C:\Users\Rm\Documents\GitHub\Arboles\ArbolB\ArbolB\obj\Debug\ArbolB.csprojAssemblyReference.cache
+C:\Users\Rm\Documents\GitHub\Arboles\ArbolB\ArbolB\obj\Debug\ArbolB.Form1.resources
+C:\Users\Rm\Documents\GitHub\Arboles\ArbolB\ArbolB\obj\Debug\ArbolB.Properties.Resources.resources
+C:\Users\Rm\Documents\GitHub\Arboles\ArbolB\ArbolB\obj\Debug\ArbolB.csproj.GenerateResource.cache
+C:\Users\Rm\Documents\GitHub\Arboles\ArbolB\ArbolB\obj\Debug\ArbolB.csproj.CoreCompileInputs.cache
+C:\Users\Rm\Documents\GitHub\Arboles\ArbolB\ArbolB\obj\Debug\ArbolB.exe
+C:\Users\Rm\Documents\GitHub\Arboles\ArbolB\ArbolB\obj\Debug\ArbolB.pdb

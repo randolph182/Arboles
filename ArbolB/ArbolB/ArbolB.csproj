@@ -55,6 +55,8 @@
     </Compile>
     <Compile Include="Generico.cs" />
     <Compile Include="Grafo.cs" />
+    <Compile Include="NodoBD.cs" />
+    <Compile Include="NodoTL.cs" />
     <Compile Include="Pagina.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
