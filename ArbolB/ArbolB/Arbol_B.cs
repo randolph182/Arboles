@@ -187,11 +187,11 @@ namespace ArbolB
                 encontrado = buscarPagina(actual, valor,ref k);
                 if(encontrado)
                 {
-                    if(actual.ramas[k - 1] == null)
+                    if(actual.ramas[k - 1] == null) //pregunto si es hoja
                     {
                         quitar(actual, k);
                     }
-                    else
+                    else //sino se hace la sustitucion entre la clave en la hoja y el predecesor osea el padre
                     {
                         sucesor(actual, k);
                         eliminarRegistro(actual.ramas[k], actual.claves[k], ref encontrado);
@@ -207,9 +207,9 @@ namespace ArbolB
                 desde el nodo actual en la ruta de busqueda seguida*/
                 if (actual.ramas[k] != null)
                 {
-                    if(actual.ramas[k].cuenta  < orden/2)
+                    if(actual.ramas[k].cuenta  < orden/2) //compruba que cumpla con la estructura de un arbol b; en este caso el minimos de claves por pagina
                     {
-                        restablecer(actual, k);
+                        restablecer(actual, k); //el objetivo de este metodo es restablecer
                     }
                 }
             }
@@ -264,7 +264,7 @@ namespace ArbolB
                 }
                 else
                 {
-                    combinar(actual, 1);
+                    combinar(actual, 1); //rama derecha
                 }
             }
         }
@@ -306,7 +306,7 @@ namespace ArbolB
             para reemplazar la que antes bajo*/
 
             actual.claves[k] = nodoDerecho.claves[1];
-            nodoDerecho.ramas[1] = nodoDerecho.ramas[0];
+            nodoDerecho.ramas[0] = nodoDerecho.ramas[1]; //se modifico esta parte ya que no hace bien el balanceo; especificamente los indices
             nodoDerecho.cuenta--;
 
             for (j = 1; j < nodoDerecho.cuenta; j++)
@@ -317,11 +317,12 @@ namespace ArbolB
         }
 
 
+        /*combina el nodod que esta en la rama k con el que esta en la rama k-1 y la clave mediana de ambos*/
         public void combinar(Pagina actual, int k)
         {
             int j = 0;
             Pagina nodoIzquierdo, q = null;
-            q = actual.ramas[k];
+            q = actual.ramas[k]; //rama derecha
             nodoIzquierdo = actual.ramas[k - 1];
                         /* baja la clave mediana desde el node padre*/
             nodoIzquierdo.cuenta++;
